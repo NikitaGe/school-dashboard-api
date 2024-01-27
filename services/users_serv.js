@@ -1,9 +1,9 @@
 const DatabaseUsers = require('../db/users_db')
 
 //Services Functions
-async function getUsers(id, test) {
-    console.log("user");
-   const response = DatabaseUsers.getUsersDB(32)
+async function getUsers(id) {
+   const response = await DatabaseUsers.getUsersDB(id)
+   console.log("res",response);
     return response
 }
 

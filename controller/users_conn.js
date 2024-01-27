@@ -6,10 +6,9 @@ const UserServices = require('../services/users_serv')
 
 //Routes
 router.get('/getUserList', async (req, res)=> {
-    //res.sendStatus(404).send
-    const data = await UserServices.getUsers(30, '323232');
-    console.log("here",data);
-    res.send('test')
+    const data = await UserServices.getUsers(1);
+    res.send(data)
+    console.log("controllers", data);
   })
 
 
