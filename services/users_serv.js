@@ -9,6 +9,23 @@ async function getUsers(id) {
 
 
 
+async function getClass(id) {
+    const response = await DatabaseUsers.getClassesDB(id)
+    console.log("res",response);
+     return response
+ }
+    
+
+
+
+
+
+
+
+
+
+
 module.exports = {
-    getUsers
+    getUsers,
+    getClass
 }

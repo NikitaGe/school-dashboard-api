@@ -4,7 +4,13 @@ const Database = require('./db_config')
 
 
 async function getUsersDB(id) {
-    const sql = `SELECT * FROM T_Klasse`;
+   let sql = `
+    SELECT Schueler.Vorname, Schueler.Nachname, Schueler.Geburtsdatum, Schueler.Strasse, Schueler.PLZ, Schueler.Wohnort,
+    Klassen.Klassenname, Lehrer.Nachname as Lehrer, Schueler.Anwesenheit
+    FROM Schueler
+    INNER JOIN Klassen on Schueler.KlasseID = Schueler.KlasseID
+    INNER JOIN Lehrer on Klassen.LehrerID = Lehrer.LehrerID
+    `;
         return new Promise((resolve, reject) => {
         Database.db.all(sql, (err, rows) => {
             if(err) reject(err);
@@ -14,6 +20,24 @@ async function getUsersDB(id) {
 }
 
 
+
+async function getClassesDB(id) {
+    let sql = `SELECT * FROM Klassen`;
+     console.log(sql);
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql, (err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })
+ }
+
+
+
+
+
+
 module.exports = {
-    getUsersDB
+    getUsersDB,
+    getClassesDB
 }
