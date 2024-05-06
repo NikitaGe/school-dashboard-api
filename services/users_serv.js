@@ -3,15 +3,19 @@ const DatabaseUsers = require('../db/users_db')
 //Services Functions
 async function getUsers(id) {
    const response = await DatabaseUsers.getUsersDB(id)
-   console.log("res",response);
     return response
 }
 
 
+async function getUsersofClass(idclass) {
+    const response = await DatabaseUsers.getUsersofClassDB(idclass)
+     return response
+ }
 
-async function getClass(id) {
-    const response = await DatabaseUsers.getClassesDB(id)
-    console.log("res",response);
+
+
+async function getClass() {
+    const response = await DatabaseUsers.getClassesDB()
      return response
  }
     
@@ -27,5 +31,6 @@ async function getClass(id) {
 
 module.exports = {
     getUsers,
-    getClass
+    getClass,
+    getUsersofClass
 }

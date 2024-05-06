@@ -21,9 +21,31 @@ async function getUsersDB(id) {
 
 
 
-async function getClassesDB(id) {
+
+async function getUsersofClassDB(idclass) {
+    let sql = `
+     SELECT Schueler.Vorname, Schueler.Nachname, Schueler.Geburtsdatum, Schueler.Strasse, Schueler.PLZ, Schueler.Wohnort,
+     Klassen.Klassenname, Lehrer.Nachname as Lehrer, Schueler.Anwesenheit
+     FROM Schueler
+     INNER JOIN Klassen on Schueler.KlasseID = Schueler.KlasseID
+     INNER JOIN Lehrer on Klassen.LehrerID = Lehrer.LehrerID where Klassen.KlasseID = ${idclass}
+
+     `;
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql, (err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })
+ }
+
+
+
+
+
+
+async function getClassesDB() {
     let sql = `SELECT * FROM Klassen`;
-     console.log(sql);
          return new Promise((resolve, reject) => {
          Database.db.all(sql, (err, rows) => {
              if(err) reject(err);
@@ -39,5 +61,6 @@ async function getClassesDB(id) {
 
 module.exports = {
     getUsersDB,
-    getClassesDB
+    getClassesDB,
+    getUsersofClassDB
 }
