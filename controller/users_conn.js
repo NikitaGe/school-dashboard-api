@@ -6,27 +6,34 @@ const UserServices = require('../services/users_serv')
 
 //Routes
 router.get('/getUserList', async (req, res)=> {
-    const data = await UserServices.getUsers(1);
-    res.send(data);
+    try {
+      const data = await UserServices.getUsers(1);
+      res.send(data);
+    }catch(err) {
+      console.log(err);
+      res.status(400)
+    }
   })
 
   router.get('/selectClass', async (req, res)=> {
-    //console.log(req.query.idclass);
-    let idclass = req.query.idclass
-    const data = await UserServices.getUsersofClass(idclass);
-    res.send(data)
-
+    try {
+      let idclass = req.query.idclass
+      const data = await UserServices.getUsersofClass(idclass);
+      res.send(data)
+    }catch(err) {
+      console.log(err);
+      res.status(400)
+    }
   })
-
-
-
-
-  
-
   
   router.get('/getClasses', async (req, res)=> {
-    const data = await UserServices.getClass();
-    res.send(data)
+    try {
+      const data = await UserServices.getClass();
+      res.send(data)
+    }catch(err) {
+      console.log(err);
+      res.status(400)
+      }
   })
   
 
