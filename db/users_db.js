@@ -20,6 +20,31 @@ async function getUsersDB(id) {
 }
 
 
+async function getLehrerDB() {
+    let sql = `SELECT * FROM Lehrer INNER JOIN Faecher on Lehrer.FachID = Faecher.FachID`;
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql, (err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })
+ }
+
+ async function getNewsDB() {
+    let sql = `SELECT newsid FROM News`;
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql, (err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })
+ }
+
+ 
+
+
+
+
 
 
 async function getUsersofClassDB(idclass) {
@@ -39,11 +64,6 @@ async function getUsersofClassDB(idclass) {
      })
  }
 
-
-
-
-
-
 async function getClassesDB() {
     let sql = `SELECT * FROM Klassen`;
          return new Promise((resolve, reject) => {
@@ -56,11 +76,26 @@ async function getClassesDB() {
 
 
 
+ 
+ async function  getAdmin(loginData) {
+    let sql = `SELECT * FROM Admin where username = '${loginData.username}' and password = '${loginData.password}'`;
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql, (err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })
+ }
+ 
+
 
 
 
 module.exports = {
     getUsersDB,
     getClassesDB,
-    getUsersofClassDB
+    getUsersofClassDB,
+    getAdmin,
+    getLehrerDB,
+    getNewsDB
 }

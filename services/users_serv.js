@@ -2,24 +2,45 @@ const DatabaseUsers = require('../db/users_db')
 
 //Services Functions
 async function getUsers(id) {
-   const response = await DatabaseUsers.getUsersDB(id)
-    return response
+   const users = await DatabaseUsers.getUsersDB(id);
+    return users
 }
 
 
-async function getUsersofClass(idclass) {
-    const response = await DatabaseUsers.getUsersofClassDB(idclass)
-     return response
+
+async function getLehrer() {
+    const users = await DatabaseUsers.getLehrerDB();
+     return users
  }
+ async function getNews() {
+    const news = await DatabaseUsers.getNewsDB();
+     return news[0]
+ }
+ 
 
 
+async function getUsersofClass(idclass) {
+    const classesUsers = await DatabaseUsers.getUsersofClassDB(idclass);
+     return classesUsers
+ }
 
 async function getClass() {
-    const response = await DatabaseUsers.getClassesDB()
-     return response
+    const classes = await DatabaseUsers.getClassesDB();
+     return classes
  }
     
+async function checkAuthentication(loginData) {
+    const checkAuth = await DatabaseUsers.getAdmin(loginData);
+    let isAuth = false;
 
+    if(checkAuth.length > 0) {
+        isAuth = true
+    }else {
+        isAuth = false
+    }
+
+    return isAuth
+}
 
 
 
@@ -32,5 +53,8 @@ async function getClass() {
 module.exports = {
     getUsers,
     getClass,
-    getUsersofClass
+    getUsersofClass,
+    checkAuthentication,
+    getLehrer,
+    getNews
 }

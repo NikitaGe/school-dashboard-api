@@ -5,20 +5,15 @@ const UserServices = require('../services/users_serv');
 //Routes
 
 router.post('/login', async (req, res) => {
-  //console.log("login", req.body);
-
-  console.log("login", req.body);
-
-
-
-   
-
+  const loginData = req.body.data;
+  try {
+    const isAuth = await UserServices.checkAuthentication(loginData);
+    res.send(isAuth);
+  }catch(err) {
+    console.log(err);
+    res.status(400)
+  }
 })
-
-
-
-
-
 
 
 router.get('/getUserList', async (req, res)=> {
@@ -30,6 +25,37 @@ router.get('/getUserList', async (req, res)=> {
       res.status(400)
     }
   })
+
+
+  
+  router.get('/getLehrerList', async (req, res)=> {
+    try {
+      const data = await UserServices.getLehrer();
+      res.send(data);
+    }catch(err) {
+      console.log(err);
+      res.status(400)
+    }
+  })
+
+
+
+  router.get('/getNews', async (req, res)=> {
+    try {
+      const news = await UserServices.getNews();
+      res.send(data);
+    }catch(err) {
+      console.log(err);
+      res.status(400)
+    }
+  })
+
+
+
+
+
+
+
 
   router.get('/selectClass', async (req, res)=> {
     try {
