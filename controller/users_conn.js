@@ -8,6 +8,13 @@ router.post('/login', async (req, res) => {
   const loginData = req.body.data;
   try {
     const isAuth = await UserServices.checkAuthentication(loginData);
+    console.log(req.session.isAuth);
+
+    if (isAuth) {
+      req.session.isAuth = true;
+    }
+    console.log(req.session.isAuth);
+
     res.send(isAuth);
   }catch(err) {
     console.log(err);
@@ -43,7 +50,7 @@ router.get('/getUserList', async (req, res)=> {
   router.get('/getNews', async (req, res)=> {
     try {
       const news = await UserServices.getNews();
-      res.send(data);
+      res.send(news);
     }catch(err) {
       console.log(err);
       res.status(400)

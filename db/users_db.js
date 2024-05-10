@@ -31,7 +31,7 @@ async function getLehrerDB() {
  }
 
  async function getNewsDB() {
-    let sql = `SELECT newsid FROM News`;
+    let sql = `SELECT * FROM News`;
          return new Promise((resolve, reject) => {
          Database.db.all(sql, (err, rows) => {
              if(err) reject(err);
