@@ -78,7 +78,7 @@ async function getClassesDB() {
 
  
  async function  getAdmin(loginData) {
-    let sql = `SELECT * FROM Admin where username = '${loginData.username}' and password = '${loginData.password}'`;
+    let sql = `SELECT * FROM User where username = '${loginData.username}'`;
          return new Promise((resolve, reject) => {
          Database.db.all(sql, (err, rows) => {
              if(err) reject(err);
@@ -87,6 +87,27 @@ async function getClassesDB() {
      })
  }
  
+ 
+
+ async function registerUser(username, id, hash) {
+    let sql = `INSERT INTO User (userid, username, hashedpassword) VALUES (${id}, '${username}','${hash}')`;
+         return new Promise((resolve, reject) => {
+         Database.db.all(sql,(err, rows) => {
+             if(err) reject(err);
+             resolve(rows);
+         })
+     })   
+ }
+
+ async function getMaxUserID() {
+    let sql = `SELECT Max(userid) as userid from User`;
+    return new Promise((resolve, reject) => {
+    Database.db.all(sql,(err, rows) => {
+        if(err) reject(err);
+        resolve(rows);
+    })
+})  
+ }
 
 
 
@@ -97,5 +118,7 @@ module.exports = {
     getUsersofClassDB,
     getAdmin,
     getLehrerDB,
-    getNewsDB
+    getNewsDB,
+    registerUser,
+    getMaxUserID
 }

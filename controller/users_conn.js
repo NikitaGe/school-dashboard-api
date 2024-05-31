@@ -4,18 +4,22 @@ const UserServices = require('../services/users_serv');
 
 //Routes
 
+
+
+
 router.post('/login', async (req, res) => {
   const loginData = req.body.data;
   try {
-    const isAuth = await UserServices.checkAuthentication(loginData);
-    console.log(req.session.isAuth);
-
-    if (isAuth) {
-      req.session.isAuth = true;
-    }
-    console.log(req.session.isAuth);
-
-    res.send(isAuth);
+    if(req.session.username) {
+      res.send(true)
+    }else {
+      const isAuth = await UserServices.checkAuthentication(loginData);
+      if(isAuth) {
+        req.session.username = loginData.username;
+        console.log(req.session);
+      }
+      res.send(isAuth);
+    } 
   }catch(err) {
     console.log(err);
     res.status(400)
@@ -23,7 +27,47 @@ router.post('/login', async (req, res) => {
 })
 
 
-router.get('/getUserList', async (req, res)=> {
+
+router.post('/checkAuthStatus', async (req, res) => {
+  let isAuth = false;
+  try {
+    if(req.session.username) {
+      isAuth = true
+    }else {
+      isAuth = false
+    }
+    res.send(isAuth)
+  }catch(err) {
+    console.log(err);
+    res.status(400)
+  }
+})
+
+
+
+
+
+
+
+router.post('/register', async (req, res) => {
+  try {
+    const registerData = req.body.data;
+    const password = await UserServices.cryptPassword(registerData);
+  }catch(err) {
+    console.log(err);
+    res.status(400)
+  }
+})
+
+
+
+
+
+
+
+
+
+router.get('/getUserList',  async (req, res)=> {
     try {
       const data = await UserServices.getUsers(1);
       res.send(data);

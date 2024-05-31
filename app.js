@@ -20,7 +20,7 @@ app.use(session({
 
 app.use(cors({
   origin : true,
-  credentials : true
+  credentials : true,
 
 }));
 app.use('/api/users', UserController)
