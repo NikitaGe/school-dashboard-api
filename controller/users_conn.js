@@ -36,12 +36,6 @@ router.post('/checkAuthStatus', async (req, res) => {
   }
 })
 
-
-
-
-
-
-
 router.post('/register', async (req, res) => {
   try {
     const registerData = req.body.data;
@@ -51,14 +45,6 @@ router.post('/register', async (req, res) => {
     res.status(400)
   }
 })
-
-
-
-
-
-
-
-
 
 router.get('/getUserList',  async (req, res)=> {
     try {
@@ -70,8 +56,6 @@ router.get('/getUserList',  async (req, res)=> {
     }
   })
 
-
-  
   router.get('/getLehrerList', async (req, res)=> {
     try {
       const data = await UserServices.getLehrer();
@@ -81,8 +65,6 @@ router.get('/getUserList',  async (req, res)=> {
       res.status(400)
     }
   })
-
-
 
   router.get('/getNews', async (req, res)=> {
     try {
