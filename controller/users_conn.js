@@ -3,10 +3,6 @@ const router = express.Router();
 const UserServices = require('../services/users_serv');
 
 //Routes
-
-
-
-
 router.post('/login', async (req, res) => {
   const loginData = req.body.data;
   try {
@@ -16,7 +12,6 @@ router.post('/login', async (req, res) => {
       const isAuth = await UserServices.checkAuthentication(loginData);
       if(isAuth) {
         req.session.username = loginData.username;
-        console.log(req.session);
       }
       res.send(isAuth);
     } 
@@ -25,8 +20,6 @@ router.post('/login', async (req, res) => {
     res.status(400)
   }
 })
-
-
 
 router.post('/checkAuthStatus', async (req, res) => {
   let isAuth = false;

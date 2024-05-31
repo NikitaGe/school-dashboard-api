@@ -54,7 +54,6 @@ async function getUsersofClassDB(idclass) {
      FROM Schueler
      INNER JOIN Klassen on Schueler.KlasseID = Schueler.KlasseID
      INNER JOIN Lehrer on Klassen.LehrerID = Lehrer.LehrerID where Klassen.KlasseID = ${idclass}
-
      `;
          return new Promise((resolve, reject) => {
          Database.db.all(sql, (err, rows) => {
