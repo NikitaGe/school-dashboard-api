@@ -1,8 +1,30 @@
 const express = require('express');
+const axios = require('axios');
 const router = express.Router();
 const UserServices = require('../services/users_serv');
 
 //Routes
+
+
+
+router.get('/weather-proxy',  async (req, res)=> {
+  try {
+    console.log("etetet");
+      const response = await axios.get('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min');
+      res.json(response.data);
+
+
+
+  }catch(err) {
+    console.log(err);
+    res.status(400)
+  }
+})
+
+
+
+
+
 router.post('/login', async (req, res) => {
   const loginData = req.body.data;
   try {
@@ -19,7 +41,28 @@ router.post('/login', async (req, res) => {
     console.log(err);
     res.status(400)
   }
-})
+});
+
+
+router.post('/logout', async (req, res) => {
+
+  try {
+   req.session.destroy( ()=> {
+    console.log("session killed");
+   })
+  }catch(err) {
+    console.log(err);
+    res.status(400)
+  }
+});
+
+
+
+
+
+
+
+
 
 router.post('/checkAuthStatus', async (req, res) => {
   let isAuth = false;

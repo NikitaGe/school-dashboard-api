@@ -18,11 +18,19 @@ app.use(session({
     }      
 }))
 
+
+
+
 app.use(cors({
   origin : true,
   credentials : true,
-
 }));
+
+
+
+
+
+
 app.use('/api/users', UserController)
 app.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
