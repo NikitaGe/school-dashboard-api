@@ -9,12 +9,8 @@ const UserServices = require('../services/users_serv');
 
 router.get('/weather-proxy',  async (req, res)=> {
   try {
-    console.log("etetet");
       const response = await axios.get('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min');
       res.json(response.data);
-
-
-
   }catch(err) {
     console.log(err);
     res.status(400)

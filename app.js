@@ -13,7 +13,7 @@ app.use(session({
     saveUninitialized: false,
     cookie : {
       secure : false,
-      maxAge:( 30000 * 10),
+      maxAge:( 60000 * 10),
       httpOnly: true
     }      
 }))
